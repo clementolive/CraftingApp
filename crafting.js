@@ -40,40 +40,72 @@ class Item{
 
     constructor(){
         //get a name 
-        this.rarity = 1; // normal by default
+        this.rarity = 3; 
+        this.modList = []; 
     }
 
     update(){
         document.getElementById("item_name").innerHTML = this.name; 
         document.getElementById("lvl_required").innerHTML = this.lvl_required; 
+
         document.getElementById("implicit").innerHTML = this.implicit; 
-        document.getElementById("prefix1").innerHTML = this.prefix1; 
-        document.getElementById("prefix2").innerHTML = this.prefix2; 
-        document.getElementById("prefix3").innerHTML = this.prefix3; 
+        
+        var l = this.modList.length; 
+        if(l>=1){
+            document.getElementById("prefix1").innerHTML = this.modList[0]; 
+        } else document.getElementById("prefix1").innerHTML = ""; 
+        if(l>=2){
+            document.getElementById("prefix2").innerHTML = this.modList[1]; 
+        } else document.getElementById("prefix2").innerHTML = ""; 
+        if(l>=3){
+            document.getElementById("prefix3").innerHTML = this.modList[2]; 
+        } else document.getElementById("prefix3").innerHTML = ""; 
+
     }
 
-    craft_chaos(){
-        //get name
-        var temp = getRandomInt(mods);
-        this.name = name_prefixes[temp]; 
-        temp = getRandomInt(mods);
-        this.name += " " + name_suffixes[temp]; 
-        this.lvl_required = "Level required: " + (getRandomInt(69)+1); 
-    
-        //3 mods 
-        temp = getRandomInt(mods); 
-        this.implicit = implicits[temp]; 
-    
-        this.prefix1 = roll_numeric_mod(); 
-        this.prefix2 = roll_numeric_mod(); 
-        temp = getRandomInt(mods); 
-        this.prefix3 = prefixes_basic[temp]; 
-        item.update(); 
+    craft_alchemy(){ //from normal to rare, with 3 mods 
+        if(this.rarity==1){
+            this.rarity = 3; 
+            this.craft_chaos(); 
+            this.update_rarity_css(); 
+        } else alert("Item is not normal!");
+    }
+
+    craft_chaos(){ // rerolls a rare item with new rare modifiers.
+        if(this.rarity==3){
+            //get name
+            var temp = getRandomInt(mods);
+            this.name = name_prefixes[temp]; 
+            temp = getRandomInt(mods);
+            this.name += " " + name_suffixes[temp]; 
+            this.lvl_required = "Level required: " + (getRandomInt(69)+1); 
+        
+            //3 mods 
+            temp = getRandomInt(mods); 
+            this.implicit = implicits[temp]; 
+
+            this.modList = []; 
+            this.modList.push(roll_numeric_mod()); 
+            this.modList.push(roll_numeric_mod()); 
+            this.modList.push(roll_numeric_mod()); 
+
+            item.update(); 
+        } else alert("Item is not rare!");
     }
 
     craft_scouring(){
         this.rarity = 1; 
-        document.getElementById("item").className = "normal";
+        this.update_rarity_css(); 
+        this.modList = []; 
+        item.update(); 
+    }
+
+    update_rarity_css(){
+        var res = ""; 
+        if (this.rarity==1) res = "normal"; 
+        if(this.rarity==2) res = "magic"; 
+        if(this.rarity==3) res = "rare"; 
+        document.getElementById("item").className = res;
     }
 }
 
