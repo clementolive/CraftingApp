@@ -16,7 +16,7 @@
 <body>
     <nav class="navbar">
         <ul class="navbar-nav">
-            <li class="nav_item" ><a href="#">Home</a></li>
+            <li class="nav_item" ><a href="index.html">Home</a></li>
             <li class="nav_item" ><a href="#">Craft</a></li>
             <li class="nav_item" ><a href="#">Mods</a></li>
             <li class="nav_item" ><a href="#">Guide</a></li>
@@ -24,21 +24,22 @@
     </nav>
 
     <div class="crafting_simulator" >
-        <img src="images/chaos.png" onclick="craft_chaos()" >
+        <img src="images/transmutation-upscaled.png">
         <img src="images/alteration.png">
-        <img src="images/divine.png">
-        <img src="images/exalt.png">
         <img src="images/regal.png">
+        <img src="images/chaos.png" onclick="craft_chaos()" >
+        <img src="images/exalt.png">
+        <img src="images/divine.png">
         <img src="images/scouring.png">
     </div>
 
-    <ul class="item">
+    <ul class="item" rarity = 2 bloup = "oehi">
         <li id="item_name">Rusted boots</li>
-        <li id="lvl_required">44</li>
+        <li id="lvl_required">Level required: 1</li>
         <hr>
-        <li id="prefix1">Added fire damage</li>
-        <li id="prefix2">Onslaught</li>
-        <li id="prefix3">Fire footprints</li>
+        <li class="mod" id="prefix1"></li>
+        <li class="mod" id="prefix2"></li>
+        <li class="mod" id="prefix3"></li>
     </ul>
 
 
