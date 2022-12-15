@@ -1,20 +1,21 @@
 // PoE-like crafting App 12/2022
+// @ts-check 
 const mods = 4; // keep at least this amount for ALL arrays 
-const mod_limit = 6; 
+const item_mod_limit = 6; 
 const mod_max_value = 50; 
 
-name_prefixes = ["Spiked", "Rusted", "Shiny", "Scuffed"]; 
-name_suffixes = ["Gloves", "Mitts", "Boots", "Greaves"]; 
+const name_prefixes = ["Spiked", "Rusted", "Shiny", "Scuffed"]; 
+const name_suffixes = ["Gloves", "Mitts", "Boots", "Greaves"]; 
 
-implicits = ["Projectile damage", "Global defenses", "Mana regeneration", "Armour"]; 
+const implicits = ["Projectile damage", "Global defenses", "Mana regeneration", "Armour"]; 
 
-prefixes_numeric = ["Fire damage", "Cold damage",
+const prefixes_numeric = ["Fire damage", "Cold damage",
  "Lightning damage", "Chaos damage"]; 
 
-prefixes_basic = ["Burning footsteps", "Onslaught", "Your Hits can't be evaded", 
+const prefixes_basic = ["Burning footsteps", "Onslaught", "Your Hits can't be evaded", 
 "Critical chance is lucky", "Point blank", "Blind on hit"]; 
 
-suffixes_numeric = ["Dexterity", "Strength", "Intelligence", "Rage"]; 
+const suffixes_numeric = ["Dexterity", "Strength", "Intelligence", "Rage"]; 
 
 // CLASSES
 
@@ -34,6 +35,8 @@ class Item{
     prefix1; 
     prefix2; 
     prefix3; 
+
+    modList; 
 
     constructor(){
         //get a name 
@@ -67,12 +70,20 @@ class Item{
         this.prefix3 = prefixes_basic[temp]; 
         item.update(); 
     }
+
+    craft_scouring(){
+        this.rarity = 1; 
+        document.getElementById("item").className = "normal";
+    }
 }
 
 // MAIN FUNCTION
 let item = new Item(); 
 
 
+/**
+ * @param {number} max
+ */
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
@@ -81,10 +92,4 @@ function roll_numeric_mod(){
     var temp = getRandomInt(mod_max_value)+1;
     var temp2 = getRandomInt(mods);
     return "Adds " + temp + " to " + prefixes_numeric[temp2]; 
-}
-
-
-
-function craft_scouring(){
-
 }

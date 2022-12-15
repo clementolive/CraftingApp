@@ -56,9 +56,9 @@ ul {
     padding: 0;
   }
 
-.item{
+#item{
     background-color:black; 
-    box-shadow: inset 0 0 8px gold, 0 0 2em red;
+    
     color:darkcyan; 
     text-align:center; 
     font-size:x-large; 
@@ -71,8 +71,7 @@ ul {
 
 #item_name{
     font-size:xx-large; 
-    background:rgb(44, 22, 4); 
-    color:gold; 
+
 }
 
 #prefix1{
@@ -84,8 +83,26 @@ ul {
     color:grey; 
 }
 
+#implicit{
+    padding:5px; 
+}
+
 .mod{
     margin-left:15px; 
     margin-right:15px; 
     font-size:20px; 
+}
+
+.normal li#item_name{
+    color:white; 
+    background-color: rgb(63, 63, 63);
+}
+
+.rare li#item_name{
+    color:gold; 
+    background-color: rgb(57, 34, 4);
+}
+
+.rare {
+    box-shadow: inset 0 0 8px gold, 0 0 2em red;
 }
