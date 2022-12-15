@@ -1,0 +1,79 @@
+*{
+    margin:0; 
+    padding:0; 
+}
+
+body, html{
+    background-color: rgb(23, 22, 22) !important; 
+    color:black; 
+}
+
+img{
+    width:100px; 
+    height:auto; 
+}
+
+a{
+    text-decoration: none;
+    color:white; 
+}
+
+a hover{
+    color:red; 
+}
+
+.crafting_simulator{
+    margin:auto; 
+    width:fit-content; 
+    margin-top:25px; 
+    margin-bottom:30px; 
+}
+
+
+.navbar{
+    height: 70px; 
+    width: 100%;
+    background:black; 
+    color:white;
+    padding: 10px; 
+    font-size:xx-large; 
+}
+
+.navbar-nav{
+    display:flex; 
+    height: 100%; 
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+hr{
+    size:2px; 
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .item{
+    background-color:black; 
+    box-shadow: inset 0 0 8px gold, 0 0 2em red;
+    color:darkcyan; 
+    text-align:center; 
+    font-size:x-large; 
+    border:1px solid yellow; 
+    width:fit-content; 
+    margin:auto; 
+    min-width:280px; 
+  }
+
+  #item_name{
+    font-size:xx-large; 
+    background:rgb(44, 22, 4); 
+    color:gold; 
+  }
+
+  #lvl_required{
+    color:grey; 
+  }

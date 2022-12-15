@@ -1,16 +1,47 @@
 <!DOCTYPE html>
 
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Crafting App</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Crafting App</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" type="image/jpg" href="icon.png"/>
+    <link rel="stylesheet" href="style.css">
 
-        <script src="crafting.js"></script>
-    </body>
+</head>
+<body>
+    <nav class="navbar">
+        <ul class="navbar-nav">
+            <li class="nav_item" ><a href="#">Home</a></li>
+            <li class="nav_item" ><a href="#">Craft</a></li>
+            <li class="nav_item" ><a href="#">Mods</a></li>
+            <li class="nav_item" ><a href="#">Guide</a></li>
+        </ul>
+    </nav>
+
+    <div class="crafting_simulator" >
+        <img src="images/chaos.png" onclick="craft_chaos()" >
+        <img src="images/alteration.png">
+        <img src="images/divine.png">
+        <img src="images/exalt.png">
+        <img src="images/regal.png">
+        <img src="images/scouring.png">
+    </div>
+
+    <ul class="item">
+        <li id="item_name">Rusted boots</li>
+        <li id="lvl_required">44</li>
+        <hr>
+        <li id="prefix1">Added fire damage</li>
+        <li id="prefix2">Onslaught</li>
+        <li id="prefix3">Fire footprints</li>
+    </ul>
+
+
+    <script src="crafting.js"></script>
+</body>
 </html>

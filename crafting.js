@@ -15,7 +15,7 @@ suffixes_numeric = ["Dexterity", "Strength", "Intelligence", "Rage"];
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
-  }// // 
+  }
 
 class Item{
     constructor(){
@@ -40,16 +40,12 @@ class Item{
     }
 }
 
-function craft_alteration(){
-
-}
-
 function craft_chaos(){
     var item = new Item(); 
     document.getElementById("item_name").innerHTML = item.name; 
     document.getElementById("lvl_required").innerHTML = item.lvl_required; 
-    document.getElementById("pref1").innerHTML = item.prefix1; 
-    document.getElementById("pref2").innerHTML = item.prefix2; 
-    document.getElementById("pref3").innerHTML = item.prefix3; 
+    document.getElementById("prefix1").innerHTML = item.prefix1; 
+    document.getElementById("prefix2").innerHTML = item.prefix2; 
+    document.getElementById("prefix3").innerHTML = item.prefix3; 
 }
 
