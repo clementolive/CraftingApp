@@ -24,26 +24,25 @@
     </nav>
 
     <div class="crafting_simulator" >
-        <img src="images/transmutation-upscaled.png">
+        <img src="images/transmutation-upscaled.png" onclick="item.craft_transmutation()">
         <img src="images/alchemy_upscaled.png" onclick="item.craft_alchemy()">
-        <img src="images/alteration.png">
-        <img src="images/regal.png">
+        <img src="images/alteration.png" onclick="item.craft_alteration()">
+        <img src="images/regal.png" onclick="item.craft_regal()">
         <img src="images/chaos.png" onclick="item.craft_chaos()" >
-        <img src="images/exalt.png">
+        <img src="images/exalt.png" onclick="item.craft_exalt()">
         <img src="images/divine.png">
         <img src="images/scouring.png" onclick="item.craft_scouring()">
     </div>
 
-    <ul id="item" class="rare">
+    <ul id="item" class="normal">
         <li id="item_name">Rusted boots</li>
         <li id="lvl_required">Level required: 1</li>
         <hr>
         <li class="mod" id="implicit"></li>
         <hr>
-        <li class="mod" id="prefix1"></li>
-        <li class="mod" id="prefix2"></li>
-        <li class="mod" id="prefix3"></li>
+        <ul id="mod_list"></ul>
     </ul>
+
 
 
     <script src="crafting.js"></script>

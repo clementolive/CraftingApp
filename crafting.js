@@ -40,8 +40,10 @@ class Item{
 
     constructor(){
         //get a name 
-        this.rarity = 3; 
+        this.rarity = 1; 
         this.modList = []; 
+        var temp = getRandomInt(mods); 
+        this.implicit = implicits[temp]; 
     }
 
     update(){
@@ -49,17 +51,16 @@ class Item{
         document.getElementById("lvl_required").innerHTML = this.lvl_required; 
 
         document.getElementById("implicit").innerHTML = this.implicit; 
-        
-        var l = this.modList.length; 
-        if(l>=1){
-            document.getElementById("prefix1").innerHTML = this.modList[0]; 
-        } else document.getElementById("prefix1").innerHTML = ""; 
-        if(l>=2){
-            document.getElementById("prefix2").innerHTML = this.modList[1]; 
-        } else document.getElementById("prefix2").innerHTML = ""; 
-        if(l>=3){
-            document.getElementById("prefix3").innerHTML = this.modList[2]; 
-        } else document.getElementById("prefix3").innerHTML = ""; 
+    
+        let list = document.getElementById("mod_list");
+
+        document.getElementById("mod_list").innerHTML = "";
+ 
+        this.modList.forEach((item)=>{
+            let li = document.createElement("li");
+            li.innerText = item;
+            list.appendChild(li);
+        })
 
     }
 
@@ -71,9 +72,39 @@ class Item{
         } else alert("Item is not normal!");
     }
 
+    craft_transmutation(){ //from normal to magic, with 1 or 2 mods
+        if(this.rarity==1){
+            this.rarity = 2; 
+            //get name and lvl requirement 
+            var temp = getRandomInt(mods);
+            this.name = name_prefixes[temp]; 
+            temp = getRandomInt(mods);
+            this.name += " " + name_suffixes[temp]; 
+            this.lvl_required = "Level required: " + (getRandomInt(69)+1); 
+
+            //mods
+            this.modList.push(roll_numeric_mod()); 
+            this.modList.push(roll_numeric_mod()); 
+            this.update(); 
+            this.update_rarity_css(); 
+        } else alert("Item is not normal!");
+    }
+
+    craft_alteration(){ //removes mods, adds 1 or 2 mods
+        if(this.rarity==2){
+            this.modList = []; 
+            var temp = getRandomInt(2); 
+            for (let i = 0; i <= temp; i++) {
+                this.modList.push(roll_numeric_mod()); 
+            }
+            this.update(); 
+            this.update_rarity_css(); 
+        } else alert("Item is not magic!");
+    }
+
     craft_chaos(){ // rerolls a rare item with new rare modifiers.
         if(this.rarity==3){
-            //get name
+            //get name and lvl requirement 
             var temp = getRandomInt(mods);
             this.name = name_prefixes[temp]; 
             temp = getRandomInt(mods);
@@ -81,23 +112,42 @@ class Item{
             this.lvl_required = "Level required: " + (getRandomInt(69)+1); 
         
             //3 mods 
-            temp = getRandomInt(mods); 
-            this.implicit = implicits[temp]; 
+
 
             this.modList = []; 
             this.modList.push(roll_numeric_mod()); 
             this.modList.push(roll_numeric_mod()); 
             this.modList.push(roll_numeric_mod()); 
 
-            item.update(); 
+            this.update(); 
+        } else alert("Item is not rare!");
+    }
+
+    craft_exalt(){
+        if(this.rarity==3){
+            if(this.modList.length < 6){
+                this.modList.push(roll_numeric_mod()); 
+                this.update(); 
+            } else alert("No space for more mods."); 
         } else alert("Item is not rare!");
     }
 
     craft_scouring(){
-        this.rarity = 1; 
-        this.update_rarity_css(); 
-        this.modList = []; 
-        item.update(); 
+        if(this.rarity != 1){
+            this.rarity = 1; 
+            this.update_rarity_css(); 
+            this.modList = []; 
+            this.update(); 
+        } else alert("Item should be magic or rare"); 
+    }
+
+    craft_regal(){
+        if(this.rarity == 2){
+            this.rarity = 3; 
+            this.update_rarity_css(); 
+            this.modList.push(roll_numeric_mod()); 
+            this.update(); 
+        } else alert("Item should be magic"); 
     }
 
     update_rarity_css(){
