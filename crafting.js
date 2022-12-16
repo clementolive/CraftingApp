@@ -1,19 +1,18 @@
 // PoE-like crafting App 12/2022
 // @ts-check 
-const mods = 4; // keep at least this amount for ALL basic arrays
+const mods = 4; // keep at least this amount for ALL basic mod arrays
 
 const item_mod_limit = 6; 
 const mod_max_value = 50; 
 
 const implicits = ["Projectile damage", "Global defenses", "Mana regeneration", "Armour"]; 
 
-const prefixes_numeric = ["Fire damage", "Cold damage",
- "Lightning damage", "Chaos damage"]; // Currently used, careful 
-
  //ITEM STRUCTURE
  const categories = ["Boots", "Gloves", "Armour", "Helmet", "One handed weapon", "Two handed weapon", "Offhand"]; 
 
 // NEW MOD STRUCTURE
+const mod_types = ["attribute", "elemental_damage", "special"]; 
+
 const elements = ["Fire", "Cold", "Lightning"]; 
 const attributes = ["Strength", "Dexterity", "Intelligence"]; 
 const specials = ["Burning footsteps", "Onslaught", "Hits can't be evaded", 
@@ -23,13 +22,24 @@ const specials = ["Burning footsteps", "Onslaught", "Hits can't be evaded",
 
 class Mod{
     constructor(){
-        this.text = ""; 
+        this.text = "mod creation"; 
         this.prefix_suffix = getRandomInt(2)+1; //prefix (1) or suffix (2)
         this.value = getRandomInt(mod_max_value)+1;
         this.value2 = this.value + getRandomInt(10)+1;
         this.tier = getRandomInt(7)+1;
-        this.type = getRandomInt(mods); // this helps to create string chain for each mod 
+        var temp = getRandomInt(3); 
+        this.type = elements[temp]; // this helps to create string chain for each mod 
         this.tags = []; 
+    }
+
+    //Transforms a mod and its properties into a readable string for HTML 
+    modToString(){
+        if(this.type == "Fire" || this.type == "Cold" || this.type == "Lightning"){
+            // Example: +45% to cold resistance 
+           this.text =  "+" + this.value + "% to " + this.type + " resistance"; 
+        }
+        else this.text = "modtostring error "; 
+
     }
 }
 
@@ -99,10 +109,7 @@ class Item{
             this.lvl_required = getRandomInt(69)+1; 
 
             //mods
-            this.modList.push(roll_numeric_mod()); 
-            this.modList.push(roll_numeric_mod()); 
-            this.update(); 
-            this.update_rarity_css(); 
+            this.craft_alteration(); 
         } else alert("Item should be normal!");
     }
 
@@ -164,13 +171,15 @@ class Item{
 
     craft_divine(){ // Rerolls numeric values of mods 
         if(this.rarity != 1){ 
-            this.modList.forEach(mod => {
+            this.modList.forEach((elm) => {
                 var temp = getRandomInt(mod_max_value); 
-                mod.value = temp; 
+                elm.value = temp; 
                 temp = getRandomInt(10)+1; 
-                mod.value2 = mod.value + temp; 
+                elm.value2 = elm.value + temp; 
+                elm.modToString(); 
             });
             this.update(); 
+            console.log("divine used"); 
         } else alert("Item should be magic or rare!");
     }
 
@@ -197,23 +206,10 @@ function getRandomInt(max) {
 
 function roll_numeric_mod(){
     var mod = new Mod(); 
-    var temp = getRandomInt(mods); 
-    mod.text = "Adds " + mod.value + " to " + prefixes_numeric[temp]; 
+    var temp = getRandomInt(3); 
+    mod.type = elements[temp]; // should choose a category first. temporary 
+    mod.modToString(); 
     return mod; 
 }
 
-//Transforms a mod and its properties into a readable string for HTML 
-function ModToString(mod){
-    if(mod.type == "resistance"){
-        // Example: +29% to Fire resistance 
-        return "+" + mod.value + "% to " + mod.name + " resistance"; 
-    }
-    else if(mod.type == "attribute_flat"){
-        // Example: +29 to Dexterity
-        return "+" + mod.value + " to " + mod.name; 
-    }
-    else if(mod.type == "damage"){
-        // Example: Adds 12 to 24 to Physical Damage
-        return "Adds " + mod.value + " to " + mod.value2 + " to " + mod.name; 
-    }
-}
+
