@@ -58,10 +58,9 @@ ul {
 
 #item{
     background-color:black; 
-    
     color:darkcyan; 
     text-align:center; 
-    font-size:x-large; 
+    font-size:large; 
     border:1px solid yellow; 
     width:fit-content; 
     margin:auto; 
@@ -69,50 +68,51 @@ ul {
     padding-bottom:10px; 
 }
 
-#item_name{
-    font-size:xx-large; 
-
-}
-
-#prefix1{
-    padding-top:5px; 
-}
-
-#lvl_required{
-    padding:5px; 
+#lvl_required, #item_quality, #item_level{
     color:grey; 
 }
 
-#implicit{
-    padding:5px; 
-}
-
 .mod{
-    margin-left:15px; 
-    margin-right:15px; 
-    font-size:20px; 
+    padding-left:15px; 
+    padding-right:15px; 
 }
 
+hr{
+    margin-top:5px; 
+    margin-bottom:5px; 
+}
 
-.normal li#item_name{
+#item_title{
+    font-size:xx-large; 
+}
+
+.normal #item_title{
     color:white; 
     background-color: rgb(63, 63, 63);
 }
 
-.magic li#item_name{
+.magic #item_title{
     color:rgb(74, 79, 214); 
     background-color: rgb(23, 29, 58);
 }
 
-.rare li#item_name{
+.rare #item_title{
     color:gold; 
     background-color: rgb(57, 34, 4);
 }
 
+#mod_list{
+    padding-top:5px; 
+}
+
+#item_quality{
+    padding-top:5px; 
+}
+/*
 .magic {
     box-shadow: inset 0 0 8px gold;
 }
 
 .rare {
     box-shadow: inset 0 0 8px gold, 0 0 2em red;
-}
+}*/

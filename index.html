@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Crafting App</title>
+    <title>Path of Crafting</title>
     <meta name="description" content="A crafting app based on Path of Exile">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
@@ -31,17 +31,25 @@
         <img src="images/regal.png" onclick="item.craft_regal()">
         <img src="images/chaos.png" onclick="item.craft_chaos()" >
         <img src="images/exalt.png" onclick="item.craft_exalt()">
-        <img src="images/divine.png">
+        <img src="images/divine.png" onclick="item.craft_divine()">
         <img src="images/scouring.png" onclick="item.craft_scouring()">
     </div>
 
     <ul id="item" class="normal">
-        <li id="item_name">Rusted boots</li>
-        <li id="lvl_required">Level required: 1</li>
+        
+        <div id="item_title">
+            <li id="item_name"></li>
+            <li id="item_category"></li>
+        </div>
+    
+        <li id="item_quality"></li>
+        <hr>
+        <li id="item_level"></li>
+        <li id="lvl_required"></li>
         <hr>
         <li class="mod" id="implicit"></li>
         <hr>
-        <ul id="mod_list"></ul>
+        <ul class = "mod" id="mod_list"></ul>
     </ul>
 
 
