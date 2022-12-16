@@ -1,0 +1,20 @@
+Item copy example : 
+
+Rarity: Rare
+Crafted Item
+Slink Boots
+--------
+Quality: +20% (augmented)
+Evasion Rating: 295
+--------
+Requirements:
+Dex: 120
+Level: 69
+--------
+Item Level: 100
+--------
++28 to Dexterity
++14% to Lightning Resistance
++7% to Fire Resistance
+35% increased Movement Speed
+--------

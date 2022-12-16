@@ -21,9 +21,13 @@ const suffixes_numeric = ["Dexterity", "Strength", "Intelligence", "Rage"];
 
 class Mod{
     constructor(){
+        this.text = ""; 
         this.prefix_suffix = getRandomInt(2)+1; //prefix (1) or suffix (2)
         this.value = getRandomInt(mod_max_value)+1;
-        this.type = getRandomInt(mods); 
+        this.value2 = this.value + getRandomInt(10)+1;
+        this.tier = getRandomInt(7)+1;
+        this.type = getRandomInt(mods); // this helps to create string chain for each mod 
+        this.tags = []; 
     }
 }
 
@@ -31,12 +35,14 @@ class Item{
     rarity; 
     name; 
     lvl_required; // IT'S A STRING, CAREFUL "level required : xx"
+    attributes_required;// strength, dexterity, intelligence
     implicit; 
     prefix1; 
     prefix2; 
     prefix3; 
 
     modList; 
+    new_ModList; 
 
     constructor(){
         //get a name 
@@ -44,18 +50,19 @@ class Item{
         this.modList = []; 
         var temp = getRandomInt(mods); 
         this.implicit = implicits[temp]; 
+
+        this.new_ModList = []; 
     }
 
     update(){
         document.getElementById("item_name").innerHTML = this.name; 
         document.getElementById("lvl_required").innerHTML = this.lvl_required; 
-
         document.getElementById("implicit").innerHTML = this.implicit; 
     
         let list = document.getElementById("mod_list");
-
-        document.getElementById("mod_list").innerHTML = "";
+        list.innerHTML = "";
  
+        // Create a HTML line for each mod 
         this.modList.forEach((item)=>{
             let li = document.createElement("li");
             li.innerText = item;
@@ -90,7 +97,7 @@ class Item{
         } else alert("Item is not normal!");
     }
 
-    craft_alteration(){ //removes mods, adds 1 or 2 mods
+    craft_alteration(){ //rerolls magic, with 1 or 2 mods 
         if(this.rarity==2){
             this.modList = []; 
             var temp = getRandomInt(2); 
@@ -109,11 +116,9 @@ class Item{
             this.name = name_prefixes[temp]; 
             temp = getRandomInt(mods);
             this.name += " " + name_suffixes[temp]; 
-            this.lvl_required = "Level required: " + (getRandomInt(69)+1); 
+            this.lvl_required = "Requires level: " + (getRandomInt(69)+1); 
         
             //3 mods 
-
-
             this.modList = []; 
             this.modList.push(roll_numeric_mod()); 
             this.modList.push(roll_numeric_mod()); 
@@ -123,7 +128,7 @@ class Item{
         } else alert("Item is not rare!");
     }
 
-    craft_exalt(){
+    craft_exalt(){ // Adds a mod to a rare item, with up to 6 mods. 
         if(this.rarity==3){
             if(this.modList.length < 6){
                 this.modList.push(roll_numeric_mod()); 
@@ -132,7 +137,7 @@ class Item{
         } else alert("Item is not rare!");
     }
 
-    craft_scouring(){
+    craft_scouring(){ // From rare to normal, removing mods. 
         if(this.rarity != 1){
             this.rarity = 1; 
             this.update_rarity_css(); 
@@ -141,7 +146,7 @@ class Item{
         } else alert("Item should be magic or rare"); 
     }
 
-    craft_regal(){
+    craft_regal(){ // From magic to rare, adding a mod. 
         if(this.rarity == 2){
             this.rarity = 3; 
             this.update_rarity_css(); 
@@ -152,7 +157,7 @@ class Item{
 
     update_rarity_css(){
         var res = ""; 
-        if (this.rarity==1) res = "normal"; 
+        if(this.rarity==1) res = "normal"; 
         if(this.rarity==2) res = "magic"; 
         if(this.rarity==3) res = "rare"; 
         document.getElementById("item").className = res;
@@ -174,4 +179,11 @@ function roll_numeric_mod(){
     var temp = getRandomInt(mod_max_value)+1;
     var temp2 = getRandomInt(mods);
     return "Adds " + temp + " to " + prefixes_numeric[temp2]; 
+}
+
+//Transforms a mod and its properties into a readable string 
+function ModToString(mod){
+    if(mod.type == "resistance"){
+        return "Adds " + mod.value + " to " + mod.name; 
+    }
 }
