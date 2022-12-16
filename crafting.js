@@ -1,6 +1,7 @@
 // PoE-like crafting App 12/2022
 // @ts-check 
-const mods = 4; // keep at least this amount for ALL arrays 
+const mods = 4; // keep at least this amount for ALL basic arrays
+
 const item_mod_limit = 6; 
 const mod_max_value = 50; 
 
@@ -10,12 +11,16 @@ const name_suffixes = ["Gloves", "Mitts", "Boots", "Greaves"];
 const implicits = ["Projectile damage", "Global defenses", "Mana regeneration", "Armour"]; 
 
 const prefixes_numeric = ["Fire damage", "Cold damage",
- "Lightning damage", "Chaos damage"]; 
+ "Lightning damage", "Chaos damage"]; // Currently used, careful 
 
-const prefixes_basic = ["Burning footsteps", "Onslaught", "Your Hits can't be evaded", 
+ //ITEM STRUCTURE
+ categories = ["Boots", "Gloves", "Armour", "Helmet", "One handed weapon", "Two handed weapon", "Offhand"]; 
+
+// NEW MOD STRUCTURE
+const elements = ["Fire", "Cold", "Lightning"]; 
+const attributes = ["Strength", "Dexterity", "Intelligence"]; 
+const specials = ["Burning footsteps", "Onslaught", "Hits can't be evaded", 
 "Critical chance is lucky", "Point blank", "Blind on hit"]; 
-
-const suffixes_numeric = ["Dexterity", "Strength", "Intelligence", "Rage"]; 
 
 // CLASSES
 
@@ -32,26 +37,26 @@ class Mod{
 }
 
 class Item{
-    rarity; 
-    name; 
+    rarity; // 1(normal), 2(magic), 3(rare)
+    name; // Just "crafting project", Not useful for crafting app 
+    ilvl; // item level 
     lvl_required; // IT'S A STRING, CAREFUL "level required : xx"
     attributes_required;// strength, dexterity, intelligence
-    implicit; 
-    prefix1; 
-    prefix2; 
-    prefix3; 
+    implicit; // a special mod on top of the others 
+    category; // boots, gloves ... 
+    subcategory; // type of boots ? example : dragonscale boots
 
-    modList; 
-    new_ModList; 
+    modList; // List of Mod class, useful for easy mod manipulation 
 
     constructor(){
         //get a name 
+        this.name = "Crafting project"
+        this.category = "Boots"; 
+        this.subcategory ="Slink"; 
         this.rarity = 1; 
         this.modList = []; 
         var temp = getRandomInt(mods); 
         this.implicit = implicits[temp]; 
-
-        this.new_ModList = []; 
     }
 
     update(){
@@ -65,7 +70,7 @@ class Item{
         // Create a HTML line for each mod 
         this.modList.forEach((item)=>{
             let li = document.createElement("li");
-            li.innerText = item;
+            li.innerText = item.text;
             list.appendChild(li);
         })
 
@@ -82,11 +87,6 @@ class Item{
     craft_transmutation(){ //from normal to magic, with 1 or 2 mods
         if(this.rarity==1){
             this.rarity = 2; 
-            //get name and lvl requirement 
-            var temp = getRandomInt(mods);
-            this.name = name_prefixes[temp]; 
-            temp = getRandomInt(mods);
-            this.name += " " + name_suffixes[temp]; 
             this.lvl_required = "Level required: " + (getRandomInt(69)+1); 
 
             //mods
@@ -111,11 +111,6 @@ class Item{
 
     craft_chaos(){ // rerolls a rare item with new rare modifiers.
         if(this.rarity==3){
-            //get name and lvl requirement 
-            var temp = getRandomInt(mods);
-            this.name = name_prefixes[temp]; 
-            temp = getRandomInt(mods);
-            this.name += " " + name_suffixes[temp]; 
             this.lvl_required = "Requires level: " + (getRandomInt(69)+1); 
         
             //3 mods 
@@ -154,6 +149,13 @@ class Item{
             this.update(); 
         } else alert("Item should be magic"); 
     }
+    
+    reroll_name(){
+        var temp = getRandomInt(mods);
+        this.name = name_prefixes[temp]; 
+        temp = getRandomInt(mods);
+        this.name += " " + name_suffixes[temp]; 
+    }
 
     update_rarity_css(){
         var res = ""; 
@@ -176,14 +178,24 @@ function getRandomInt(max) {
 }
 
 function roll_numeric_mod(){
-    var temp = getRandomInt(mod_max_value)+1;
-    var temp2 = getRandomInt(mods);
-    return "Adds " + temp + " to " + prefixes_numeric[temp2]; 
+    var mod = new Mod(); 
+    var temp = getRandomInt(mods); 
+    mod.text = "Adds " + mod.value + " to " + prefixes_numeric[temp]; 
+    return mod; 
 }
 
-//Transforms a mod and its properties into a readable string 
+//Transforms a mod and its properties into a readable string for HTML 
 function ModToString(mod){
     if(mod.type == "resistance"){
-        return "Adds " + mod.value + " to " + mod.name; 
+        // Example: +29% to Fire resistance 
+        return "+" + mod.value + "% to " + mod.name + " resistance"; 
+    }
+    else if(mod.type == "attribute_flat"){
+        // Example: +29 to Dexterity
+        return "+" + mod.value + " to " + mod.name; 
+    }
+    else if(mod.type == "damage"){
+        // Example: Adds 12 to 24 to Physical Damage
+        return "Adds " + mod.value + " to " + mod.value2 + " to " + mod.name; 
     }
 }
