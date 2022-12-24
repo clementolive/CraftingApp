@@ -7,8 +7,8 @@ const mod_max_value = 50;
 
 const implicits = ["Projectile damage", "Global defenses", "Mana regeneration", "Armour"]; 
 
- //ITEM STRUCTURE
- const categories = ["Boots", "Gloves", "Armour", "Helmet", "One handed weapon", "Two handed weapon", "Offhand"]; 
+//ITEM STRUCTURE
+const categories = ["Boots", "Gloves", "Armour", "Helmet", "One handed weapon", "Two handed weapon", "Offhand"]; 
 
 // NEW MOD STRUCTURE
 const mod_types = ["attribute", "elemental_damage", "special"]; 
@@ -27,7 +27,7 @@ class Mod{
         this.value = getRandomInt(mod_max_value)+1;
         this.value2 = this.value + getRandomInt(10)+1;
         this.tier = getRandomInt(7)+1;
-        var temp = getRandomInt(3); 
+        let temp = getRandomInt(3); 
         this.type = elements[temp]; // this helps to create string chain for each mod 
         this.tags = []; 
     }
@@ -39,7 +39,6 @@ class Mod{
            this.text =  "+" + this.value + "% to " + this.type + " resistance"; 
         }
         else this.text = "modtostring error "; 
-
     }
 }
 
@@ -69,39 +68,49 @@ class Item{
         this.ilvl = 100; 
         this.lvl_required = 1; 
         this.modList = []; 
-        var temp = getRandomInt(mods); 
+        let temp = getRandomInt(mods); 
         this.implicit = implicits[temp]; 
         this.update(); 
     }
 
     update(){
+        // @ts-ignore
         document.getElementById("item_quality").innerHTML = "Quality: +" + this.quality + "%"; 
+        // @ts-ignore
         document.getElementById("item_name").innerHTML = this.name; 
+        // @ts-ignore
         document.getElementById("item_category").innerHTML = this.subcategory + " " + this.category; 
+        // @ts-ignore
         document.getElementById("item_level").innerHTML = "Item level: " + this.ilvl;
+        // @ts-ignore
         document.getElementById("lvl_required").innerHTML = "Requires level: " + this.lvl_required; 
+        // @ts-ignore
         document.getElementById("implicit").innerHTML = this.implicit; 
     
         let list = document.getElementById("mod_list");
+        // @ts-ignore
         list.innerHTML = "";
  
         // Create a HTML line for each mod 
         this.modList.forEach((item)=>{
             let li = document.createElement("li");
             li.innerText = item.text;
+            // @ts-ignore
             list.appendChild(li);
         })
     }
 
     update_rarity_css(){
-        var res = ""; 
+        let res = ""; 
         if(this.rarity==1) res = "normal"; 
         if(this.rarity==2) res = "magic"; 
         if(this.rarity==3) res = "rare"; 
+        // @ts-ignore
         document.getElementById("item").className = res;
     }
 
-//-----------------------CRAFTING ----------------------------------------------------------
+
+    //-----------------------CRAFTING ----------------------------------------------------------
 
     craft_transmutation(){ //from normal to magic, with 1 or 2 mods
         if(this.rarity==1){
@@ -124,7 +133,7 @@ class Item{
     craft_alteration(){ //rerolls magic, with 1 or 2 mods 
         if(this.rarity==2){
             this.modList = []; 
-            var temp = getRandomInt(2); 
+            let temp = getRandomInt(2); 
             for (let i = 0; i <= temp; i++) {
                 this.modList.push(roll_numeric_mod()); 
             }
@@ -148,8 +157,8 @@ class Item{
         
             //At least 4 mods, but chances to get 5 or 6
             this.modList = []; 
-            var temp = getRandomInt(100);
-            var max_rolls = 4; 
+            let temp = getRandomInt(100);
+            let max_rolls = 4; 
             if (temp <= 23) max_rolls = 5; 
             if (temp <= 12) max_rolls = 6; 
             for (let index = 0; index < max_rolls; index++) {
@@ -172,7 +181,7 @@ class Item{
     craft_divine(){ // Rerolls numeric values of mods 
         if(this.rarity != 1){ 
             this.modList.forEach((elm) => {
-                var temp = getRandomInt(mod_max_value); 
+                let temp = getRandomInt(mod_max_value)+1; 
                 elm.value = temp; 
                 temp = getRandomInt(10)+1; 
                 elm.value2 = elm.value + temp; 
@@ -193,10 +202,7 @@ class Item{
     }
 }
 
-// MAIN FUNCTION
-let item = new Item(); 
-
-
+//-------------------------------GENERIC FUNCTIONS-------------------------------------------------------- 
 /**
  * @param {number} max
  */
@@ -205,11 +211,34 @@ function getRandomInt(max) {
 }
 
 function roll_numeric_mod(){
-    var mod = new Mod(); 
-    var temp = getRandomInt(3); 
+    let mod = new Mod(); 
+    let temp = getRandomInt(3); 
     mod.type = elements[temp]; // should choose a category first. temporary 
     mod.modToString(); 
     return mod; 
 }
+
+function use_flavour(data){
+    let flavour_array = Object.values(data); 
+    //console.log(flavour_array); 
+    let temp = getRandomInt(flavour_array.length); 
+    // @ts-ignore
+    document.getElementById("flavour").innerHTML = flavour_array[temp].split('\n').join('<br/>'); 
+}
+
+
+//------------------------------------MAIN FUNCTION--------------------------------------------------
+let item = new Item(); 
+
+//JSON test 
+fetch('data/flavour.json')
+  .then((response) => response.json())
+  .then((data) => {
+    use_flavour(data); 
+});
+
+
+
+
 
 

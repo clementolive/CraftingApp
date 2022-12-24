@@ -1,30 +1,11 @@
 <!DOCTYPE html>
 
 <html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Path of Crafting</title>
-    <meta name="description" content="A crafting app based on Path of Exile">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
-    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+<?php include "./header.html" ?>
 
-    <link rel="stylesheet" href="style.css">
-
-</head>
 <body>
-    <nav class="navbar">
-        <ul class="navbar-nav">
-            <li class="nav_item" ><a href="index.html">Home</a></li>
-            <li class="nav_item" ><a href="#">Json</a></li>
-            <li class="nav_item" ><a href="#">Craft</a></li>
-            <li class="nav_item" ><a href="#">Mods</a></li>
-            <li class="nav_item" ><a href="#">Guide</a></li>
-        </ul>
-    </nav>
-
+   
+    <?php include "./navbar.html" ?>
     <div class="crafting_simulator" >
         <img src="images/transmutation-upscaled.png" onclick="item.craft_transmutation()">
         <img src="images/alchemy_upscaled.png" onclick="item.craft_alchemy()">
@@ -44,6 +25,10 @@
         </div>
     
         <li id="item_quality"></li>
+        <li id="item_armour"></li>
+        <li id="item_evasion"></li>
+        <li id="item_energy_shield"></li>
+
         <hr>
         <li id="item_level"></li>
         <li id="lvl_required"></li>
@@ -51,10 +36,11 @@
         <li class="mod" id="implicit"></li>
         <hr>
         <ul class = "mod" id="mod_list"></ul>
+        <li id="flavour"></li>
     </ul>
 
 
 
-    <script src="crafting.js"></script>
+    <script src="scripts/crafting.js"></script>
 </body>
 </html>

@@ -6,7 +6,7 @@ Slink Boots
 --------
 Quality: +20% (augmented)
 Evasion Rating: 295
---------
+--------0
 Requirements:
 Dex: 120
 Level: 69
