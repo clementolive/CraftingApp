@@ -1,4 +1,8 @@
 
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
+
 // Showing a random mod from the array 
 function use_modlist(data){
     let mod_array = Object.values(data); 
@@ -7,16 +11,19 @@ function use_modlist(data){
     document.getElementById("mod_list").innerHTML = mod_array[temp].split('\n').join('<br/>'); 
 }
 
-//get mod list in JSON 
-let res = fetch('data/flavour.json')
-  .then((response) => response.json())
-  .then((data) => {
-    use_modlist(data); 
-});
+//document.querySelector("search_input").addEventListener("input", filterList)
 
-document.querySelector("search_input").addEventListener("input", filterList)
+function search(){
+  //const searchInput = document.querySelector("seach_input")
+  let input = document.getElementById("search_input").value; 
+  input = input.toLowerCase(); 
 
-function filterList(){
-  const searchInput = document.querySelector("seach_input")
+  let x = document.getElementsByTagName("TD"); 
+  for (let index = 0; index < x.length; index++) {
+    if (!x[index].innerHTML.toLowerCase().includes(input)){
+      x[index].style.display="none"; 
+    } else x[index].style.display="table-cell"; 
+  }
 
+  console.log("Search event"); 
 }
