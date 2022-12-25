@@ -10,23 +10,23 @@
     <ul id="mod_list"></ul>
 
     <table>
-        <tr class = "skill">
+        <tr>
             <th>Name </th>
             <th>Description </th>
             <th>Category </th>
             
         </tr>
-        <tr class = "skill">
+        <tr>
             <td> Rolling magma </td>
             <td> A rolling flame with a big explosion </td>  
             <td> Spell </td>
         </tr>
-        <tr class = "skill">
+        <tr>
             <td> Fireball </td>  
             <td> A single burning flame </td>
             <td> Spell </td>
         </tr>
-        <tr class = "skill">
+        <tr>
             <td> Spectral throw </td>  
             <td> A spectral copy of weapon </td>
             <td> Attack </td>
