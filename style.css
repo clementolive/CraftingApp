@@ -155,4 +155,10 @@ th, td{
 
 input{
     height:40px; 
+    text-align: center;
+}
+
+/* SKILLS */
+.skill_name{
+    color: green; 
 }

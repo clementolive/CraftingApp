@@ -1,7 +1,4 @@
 
-function getRandomInt(max) {
-  return Math.floor(Math.random() * max);
-}
 
 function search() {
   //const searchInput = document.querySelector("seach_input")
@@ -24,19 +21,24 @@ function use_gem_data(data){
   console.log(gems_array); 
 
   var table = document.createElement("table"), row, cellA, cellB;
-  document.getElementById("test").appendChild(table);
+  document.getElementById("skills_list").appendChild(table);
   
   for (let key in gems_array) {
+      // Only active skills with a name and a description. 
       if( gems_array[key].active_skill != undefined && 
-        gems_array[key].active_skill.display_name.length > 0){
+        gems_array[key].active_skill.display_name.length > 0 &&
+        gems_array[key].active_skill.description.length > 0){
+
         // (C2) ROWS & CELLS
         row = table.insertRow();
         cellA = row.insertCell();
+        cellA.classList.add("skill_name"); 
+        //cellA.style.color = green; 
         cellB = row.insertCell();
 
         // (C3) KEY & VALUE
-        cellA.innerHTML = key; 
-        cellB.innerHTML = gems_array[key].active_skill.display_name;
+        cellA.innerHTML = gems_array[key].active_skill.display_name;
+        cellB.innerHTML = gems_array[key].active_skill.description;
       }
   }
 }

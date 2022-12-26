@@ -203,12 +203,8 @@ class Item{
 }
 
 //-------------------------------GENERIC FUNCTIONS-------------------------------------------------------- 
-/**
- * @param {number} max
- */
-function getRandomInt(max) {
-    return Math.floor(Math.random() * max);
-}
+
+import { getRandomInt } from "./basic_functions";
 
 function roll_numeric_mod(){
     let mod = new Mod(); 

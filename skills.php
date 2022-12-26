@@ -5,7 +5,7 @@
 <body>
     <?php include "./navbar.html" ?>
 
-    <div class = searchbar><input type="text" id="search_input" onkeyup="search()" placeholder="Search.."></div>
+    <div class = searchbar><input type="text" id="search_input" onkeyup="search()" placeholder="Search name.."></div>
 
     <ul id="mod_list"></ul>
 
@@ -32,8 +32,8 @@
             <td> Attack </td>
         </tr>
 
-        <div id="test"> test</div>
+        <div id="skills_list"></div>
 
-    <script src="scripts/mods.js"></script>
+    <script src="scripts/skills.js"></script>
 </body>
 </html>
