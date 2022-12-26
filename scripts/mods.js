@@ -3,16 +3,6 @@ function getRandomInt(max) {
   return Math.floor(Math.random() * max);
 }
 
-// Showing a random mod from the array 
-function use_modlist(data) {
-  let mod_array = Object.values(data);
-  let temp = getRandomInt(mod_array.length);
-  // @ts-ignore
-  document.getElementById("mod_list").innerHTML = mod_array[temp].split('\n').join('<br/>');
-}
-
-//document.querySelector("search_input").addEventListener("input", filterList)
-
 function search() {
   //const searchInput = document.querySelector("seach_input")
   let input = document.getElementById("search_input").value;
@@ -29,18 +19,31 @@ function search() {
   console.log("Search event");
 }
 
-function search2() {
-  let input = document.getElementById("search_input").value;
-  input = input.toLowerCase();
-  let td; 
-  let tr = document.getElementsByTagName("TR");
+function use_gem_data(data){
+  let gems_array = Object.values(data); 
+  console.log(gems_array); 
 
-for (let i = 0; i < tr.length; i++) {
-  td = tr[i].getElementsByTagName("TD")[0];
-  if (!td.innerHTML.toLowerCase().includes(input)) {
-    tr[i].style.display = "none";
-  } else tr[i].style.display = "";
+  var table = document.createElement("table"), row, cellA, cellB;
+  document.getElementById("test").appendChild(table);
+  
+  for (let key in gems_array) {
+      if( gems_array[key].active_skill != undefined && 
+        gems_array[key].active_skill.display_name.length > 0){
+        // (C2) ROWS & CELLS
+        row = table.insertRow();
+        cellA = row.insertCell();
+        cellB = row.insertCell();
+
+        // (C3) KEY & VALUE
+        cellA.innerHTML = key; 
+        cellB.innerHTML = gems_array[key].active_skill.display_name;
+      }
+  }
 }
 
-  console.log("Search event");
-}  
+//JSON fetch gem data (local file) 
+fetch('data/gems.json')
+  .then((response) => response.json())
+  .then((data) => {
+    use_gem_data(data); 
+});

@@ -32,6 +32,8 @@
             <td> Attack </td>
         </tr>
 
+        <div id="test"> test</div>
+
     <script src="scripts/mods.js"></script>
 </body>
 </html>
