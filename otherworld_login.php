@@ -1,12 +1,12 @@
 <html>
 <head>
-<title>Sign Up to Otherworld </title>
+<title>PHP login system</title>
 <link rel = "stylesheet" type = "text/css" href = "style.css"></head>
 
 <body>
     <div id = "frm">
-    <h1>Signup to Otherworld</h1>
-    <form name="f1" action = "session/signup.php" onsubmit = "return validation()" method = "POST">
+    <h1>Login</h1>
+    <form name="f1" action = "session/login.php" onsubmit = "return validation()" method = "POST">
     <p>
         <label> UserName: </label>
         <input type = "text" id ="user" name  = "user" />
