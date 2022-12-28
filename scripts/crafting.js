@@ -204,7 +204,9 @@ class Item{
 
 //-------------------------------GENERIC FUNCTIONS-------------------------------------------------------- 
 
-import { getRandomInt } from "./basic_functions";
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+  }
 
 function roll_numeric_mod(){
     let mod = new Mod(); 

@@ -21,7 +21,7 @@ hr{
     size:2px; 
 }
 
-ul {
+ul,li {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -161,4 +161,10 @@ input{
 /* SKILLS */
 .skill_name{
     color: green; 
+}
+
+/* SIGN UP FORM */
+form{
+    margin-top:20px; 
+    text-align: center;
 }

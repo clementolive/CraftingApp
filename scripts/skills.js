@@ -18,7 +18,7 @@ function search() {
 
 function use_gem_data(data){
   let gems_array = Object.values(data); 
-  console.log(gems_array); 
+  //console.log(gems_array); 
 
   var table = document.createElement("table"), row, cellA, cellB;
   document.getElementById("skills_list").appendChild(table);
