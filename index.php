@@ -7,7 +7,7 @@
    
     <?php include "./navbar.html" ?>
 
-
+<p> test </p> 
 
 </body>
 </html>
