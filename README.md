@@ -1,4 +1,4 @@
-*** Path of crating ***
+***Path of crating***
 
 This is a small app made in PHP with no framework, for learning purposes. 
 
