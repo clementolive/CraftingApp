@@ -36,7 +36,7 @@
         <li class="mod" id="implicit"></li>
         <hr>
         <ul class = "mod" id="mod_list"></ul>
-        <li id="flavour"></li>
+        <li id="flavour" class="flavour"></li>
     </ul>
 
 
